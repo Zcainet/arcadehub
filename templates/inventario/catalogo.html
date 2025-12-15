@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Catálogo | ArcadeHub{% endblock %}
+{% block content %}
+  <h1>Catálogo de productos</h1>
+  {% if q %}<p class="muted">Resultados para: <strong>{{ q }}</strong></p>{% endif %}
+
+  {% if productos %}
+    <div class="grid">
+      {% for p in productos %}
+        <article class="card product">
+          <a class="thumb" href="/catalogo/p/{{ p.id }}/">
+            {% if p.imagen %}
+              <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}">
+            {% else %}
+              <div class="placeholder">Sin imagen</div>
+            {% endif %}
+          </a>
+          <h3><a class="plink" href="/catalogo/p/{{ p.id }}/">{{ p.nombre }}</a></h3>
+          <p class="muted">
+            {{ p.categoria }}
+            {% if p.es_videojuego and p.consola %}
+              {{ p.consola }}
+            {% endif %}
+          </p>
+          <p>{{ p.descripcion|default:""|truncatechars:110 }}</p>
+          <div class="row">
+            <strong>${{ p.costo }}</strong>
+            <span class="muted">Existencia: {{ p.existencia }}</span>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static 'admin_custom/admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">
+    <img src="{% static 'admin_custom/logo.svg' %}" style="height:34px;vertical-align:middle;margin-right:10px;">
+    ArcadeHub Admin
+  </h1>
+{% endblock %}

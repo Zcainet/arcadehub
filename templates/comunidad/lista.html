@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Comunidad | ArcadeHub{% endblock %}
+{% block content %}
+  <div class="row between">
+    <div>
+      <h1>Comunidad</h1>
+      <p class="muted">Comentarios sobre videojuegos y accesorios.</p>
+    </div>
+    <div>
+      {% if user.is_authenticated %}
+        <a class="btn" href="/comunidad/nuevo/">Nuevo comentario</a>
+      {% else %}
+        <a class="btn" href="/cuenta/login/">Entrar para comentar</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if comentarios %}
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Videojuego</th>
+            <th>Accesorio</th>
+            <th>Autor</th>
+            <th>Calif.</th>
+            <th>Comentario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in comentarios %}
+            <tr>
+              <td>{{ c.videojuego }}</td>
+              <td>{{ c.accesorio }}</td>
+              <td>{{ c.autor }}</td>
+              <td>{{ c.calificacion }}/5</td>
+              <td>{{ c.comentario|truncatechars:80 }}</td>
+              <td>
+{% if user.is_authenticated %}
+  {% if user.is_staff or c.usuario_id == user.id %}
+    <a class="linkbtn" href="/comunidad/editar/{{ c.id }}/">Editar</a>
+    <a class="linkbtn danger" href="/comunidad/eliminar/{{ c.id }}/">Eliminar</a>
+  {% else %}
+    <span class="muted">—</span>
+  {% endif %}
+{% else %}
+  <span class="muted">—</span>
+{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">Aún no hay comentarios.</p>
+  {% endif %}
+{% endblock %}

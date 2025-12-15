@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Entrar | ArcadeHub{% endblock %}
+{% block content %}
+  <div class="card narrow">
+    <h1>Iniciar sesión</h1>
+    <p class="muted">Acceso para clientes (no para el admin).</p>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">Entrar</button>
+      <a class="btn secondary" href="/cuenta/registro/">Crear cuenta</a>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio | ArcadeHub{% endblock %}
+
+{% block content %}
+
+<div class="home">
+
+  <!-- HERO -->
+  <section class="home-hero" aria-label="Portada">
+    <div class="home-hero__bg" style="background-image:url('{% static 'image/imagen10.jpg' %}')"></div>
+    <div class="home-hero__overlay"></div>
+    <div class="home-hero__content">
+      <span class="home-kicker">Game Center</span>
+      <h1>Tu hub gamer para comprar, descubrir y opinar.</h1>
+      <p>
+        En ArcadeHub encuentras <b>videojuegos</b>, <b>consolas</b>, <b>accesorios</b> y todo para tu <b>setup</b>.
+        Explora el catálogo y participa en la comunidad.
+      </p>
+      <div class="home-hero__actions">
+        <a class="btn" href="/catalogo/">Ver catálogo</a>
+        <a class="btn secondary" href="/cuenta/registro/">Crear cuenta</a>
+      </div>
+      <div class="home-hero__chips" aria-label="Características">
+        <span class="home-chip">Videojuegos</span>
+        <span class="home-chip">Consolas</span>
+        <span class="home-chip">Periféricos</span>
+        <span class="home-chip">Reseñas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOQUES PRINCIPALES -->
+  <section class="home-section">
+    <div class="home-section__head">
+      <h2>Explora rápido</h2>
+      <p>Entradas directas para encontrar lo que buscas sin perder tiempo.</p>
+    </div>
+
+    <div class="home-quick">
+      {% if categorias %}
+        {% for c in categorias %}
+          <a class="home-quick__card" href="/catalogo/?categoria={{ c.id }}">
+            <div class="home-quick__icon">🎯</div>
+            <div>
+              <div class="home-quick__title">{{ c.nombre }}</div>
+              <div class="home-quick__meta">Explorar productos</div>
+            </div>
+            <div class="home-quick__arrow">→</div>
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section__head">
+      <h2>Productos destacados</h2>
+      <p>Una selección con buena demanda.</p>
+    </div>
+
+    <div class="home-products">
+      {% for p in destacados %}
+        <div class="home-product">
+          <a class="home-product__img" href="/catalogo/p/{{ p.id }}/" aria-label="Ver {{ p.nombre }}">
+            {% if p.imagen %}
+              <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}">
+            {% else %}
+              <img src="{% static 'image/imagen13.jpg' %}" alt="Producto">
+            {% endif %}
+            <span class="home-product__tag">Destacado</span>
+          </a>
+
+          <div class="home-product__body">
+            <div class="home-product__title">{{ p.nombre }}</div>
+            <div class="home-product__meta">
+              {% if p.es_videojuego and p.consola %}
+                {{ p.consola }} ·
+              {% endif %}
+              Stock: {{ p.existencia }}
+            </div>
+            <div class="home-product__row">
+              <div class="home-product__price">${{ p.precio }}</div>
+              <a class="linkbtn" href="/catalogo/p/{{ p.id }}/">Ver</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section__head">
+      <h2>Sucursales</h2>
+      <p>Visítanos o contáctanos desde la sucursal más cercana.</p>
+    </div>
+
+    <div class="home-branches">
+      <article class="home-branch">
+        <div class="home-branch__img"><img src="{% static 'image/imagen3.jpg' %}" alt="Sucursal CDMX"></div>
+        <div class="home-branch__overlay"></div>
+        <div class="home-branch__content">
+          <div class="home-branch__title">CDMX</div>
+          <div class="home-branch__meta">Soporte · Coleccionables</div>
+        </div>
+      </article>
+      <article class="home-branch">
+        <div class="home-branch__img"><img src="{% static 'image/imagen8.jpg' %}" alt="Sucursal Madrid"></div>
+        <div class="home-branch__overlay"></div>
+        <div class="home-branch__content">
+          <div class="home-branch__title">Madrid</div>
+          <div class="home-branch__meta">Zona retro · Consolas</div>
+        </div>
+      </article>
+      <article class="home-branch">
+        <div class="home-branch__img"><img src="{% static 'image/imagen2.jpg' %}" alt="Sucursal Tokyo"></div>
+        <div class="home-branch__overlay"></div>
+        <div class="home-branch__content">
+          <div class="home-branch__title">Tokyo</div>
+          <div class="home-branch__meta">Ediciones · Lanzamientos</div>
+        </div>
+      </article>
+      <article class="home-branch">
+        <div class="home-branch__img"><img src="{% static 'image/imagen4.jpg' %}" alt="Sucursal Sydney"></div>
+        <div class="home-branch__overlay"></div>
+        <div class="home-branch__content">
+          <div class="home-branch__title">Sydney</div>
+          <div class="home-branch__meta">Hardware · Periféricos</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="home-cta">
+      <div>
+        <h3>¿Listo para armar tu próxima aventura?</h3>
+        <p>Explora el catálogo, guarda tus favoritos y participa en la comunidad.</p>
+      </div>
+      <div class="home-cta__actions">
+        <a class="btn" href="/catalogo/">Ver catálogo</a>
+        <a class="btn secondary" href="/comunidad/">Comunidad</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}ArcadeHub{% endblock %}</title>
+  {% block extra_head %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'site.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topgrid">
+      <a class="brand" href="/"><img src="{% static 'admin_custom/logo.svg' %}" style="height:34px;vertical-align:middle;margin-right:10px;"></a>
+
+      <form class="search" action="/catalogo/" method="get">
+        <input name="q" value="{{ q|default:'' }}" placeholder="Buscar productos, marcas y más..." />
+        <button class="btn" type="submit">Buscar</button>
+      </form>
+
+      <nav class="nav">
+        <a href="/catalogo/">Catálogo</a>
+        <a href="/sucursales/">Sucursales</a>
+        <a href="/proveedores/">Proveedores</a>
+        <a href="/comunidad/">Comunidad</a>
+        {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
+          <span>{{ user.username }}</span>
+          <form action="{% url 'cliente_logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button class="linklike" type="submit">Salir</button>
+          </form>
+        {% else %}
+          <a href="{% url 'cliente_login' %}">Ingresar</a>
+          <a href="{% url 'cliente_registro' %}">Registrarse</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>ArcadeHub • Accesorios y mobiliario gamer</small>
+    </div>
+  </footer>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

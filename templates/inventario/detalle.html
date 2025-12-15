@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+{% block title %}{{ producto.nombre }} | ArcadeHub{% endblock %}
+{% block content %}
+  <a class="linkbtn" href="/catalogo/">← Volver</a>
+
+  <section class="card">
+    <div class="detailgrid">
+      <div class="thumb big">
+        {% if producto.imagen %}
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+        {% else %}
+          <div class="placeholder">Sin imagen</div>
+        {% endif %}
+      </div>
+      <div>
+        <h1>{{ producto.nombre }}</h1>
+        <p class="muted">
+          {{ producto.categoria }}
+          {% if producto.es_videojuego and producto.consola %}
+            {{ producto.consola }}
+          {% endif %}
+        </p>
+        <p>{{ producto.descripcion|default:"" }}</p>
+        <p><strong>Precio:</strong> ${{ producto.costo }} &nbsp; <span class="muted">| Existencia: {{ producto.existencia }}</span></p>
+        <p><strong>Calificación promedio:</strong> {{ promedio|default:"—" }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Reseñas de clientes</h2>
+
+    {% if not user.is_authenticated %}
+  <div class="card">
+    <p class="muted">Para calificar o comentar este producto necesitas iniciar sesión como cliente.</p>
+    <a class="btn" href="/cuenta/login/?next={{ request.path }}">Iniciar sesión</a>
+    <a class="btn secondary" href="/cuenta/registro/">Crear cuenta</a>
+  </div>
+{% elif user.is_staff or user.is_superuser %}
+  <div class="card">
+    <p class="muted">Las cuentas administrativas no pueden calificar/comentar desde el sitio. Usa una cuenta de cliente.</p>
+  </div>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <h3>{% if ya %}Editar mi reseña{% else %}Dejar reseña{% endif %}</h3>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">{% if ya %}Guardar cambios{% else %}Publicar reseña{% endif %}</button>
+     </form>
+    {% endif %}
+
+    <hr class="line">
+
+    {% if resenas %}
+      <div class="stack">
+        {% for r in resenas %}
+          <div class="panel">
+            <div class="row">
+              <strong>@{{ r.usuario.username }}</strong>
+              <span class="pill">{{ r.calificacion }}/5</span>
+            </div>
+            <p>{{ r.comentario|default:"(sin comentario)" }}</p>
+            <p class="muted small">{{ r.creado }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">Aún no hay reseñas.</p>
+    {% endif %}
+  </section>
+{% endblock %}

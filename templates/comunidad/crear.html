@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Nuevo comentario | ArcadeHub{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Nuevo comentario</h1>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">Publicar</button>
+      <a class="btn secondary" href="/comunidad/">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

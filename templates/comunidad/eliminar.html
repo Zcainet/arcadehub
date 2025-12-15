@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Eliminar | ArcadeHub{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Eliminar comentario</h1>
+    <p>¿Seguro que deseas eliminar el comentario de <strong>{{ c.autor }}</strong> sobre <strong>{{ c.videojuego }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn danger" type="submit">Sí, eliminar</button>
+      <a class="btn secondary" href="/comunidad/">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

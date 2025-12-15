@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block title %}Sucursales | ArcadeHub{% endblock %}
+{% block content %}
+  <h1>Sucursales</h1>
+  <p class="muted">Encuentra nuestras tiendas en distintos lugares del mundo.</p>
+
+  <form class="search inline" action="/sucursales/" method="get">
+    <input name="q" value="{{ q|default:'' }}" placeholder="Buscar por país, ciudad o nombre..." />
+    <button class="btn" type="submit">Buscar</button>
+  </form>
+
+  {% if sucursales %}
+    <div class="grid3">
+      {% for s in sucursales %}
+        <div class="card">
+          <h3>{{ s.nombre }}</h3>
+          <p class="muted">{{ s.ciudad }}, {{ s.pais }}</p>
+          <p>{{ s.direccion }}</p>
+          {% if s.telefono %}<p><strong>Tel:</strong> {{ s.telefono }}</p>{% endif %}
+          {% if s.horario %}<p><strong>Horario:</strong> {{ s.horario }}</p>{% endif %}
+        </div>
+      {% endfor %}
+  {% endif %}
+{% endblock %}

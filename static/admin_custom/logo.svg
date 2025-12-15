@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48" viewBox="0 0 180 48">
+  <rect x="2" y="6" width="40" height="36" rx="10" fill="#7c5cff"/>
+  <path d="M18 18h8m-4-4v8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="30" cy="24" r="3" fill="#fff"/>
+  <circle cx="36" cy="28" r="3" fill="#fff"/>
+  <text x="52" y="30" font-family="Arial, sans-serif" font-size="20" fill="#e7ecff">ArcadeHub</text>
+</svg>

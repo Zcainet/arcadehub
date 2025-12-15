@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Proveedores | ArcadeHub{% endblock %}
+{% block content %}
+  <h1>Contacto para proveedores</h1>
+  <p>Envíanos tu propuesta con un archivo adjunto (PDF/Excel/Word) con tu lista de productos.</p>
+
+  <form method="post" enctype="multipart/form-data" class="card form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn" type="submit">Enviar propuesta</button>
+  </form>
+{% endblock %}
