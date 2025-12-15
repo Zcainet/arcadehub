@@ -1,5 +1,5 @@
-
-Django>=5.2,<6
-Pillow>=10.0
-PyMySQL>=1.1.0
-mysqlclient>=2.2; platform_system != "Windows"
+Django==5.0.6
+django-ckeditor==6.7.3
+Pillow==12.0.0
+PyMySQL==1.1.2
+mysqlclient==2.2.7
