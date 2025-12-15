@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # ArcadeHub (Game Center) — Proyecto CORREGIDO
 
@@ -59,3 +60,6 @@ python manage.py collectstatic
 - Reseñas y calificación de productos desde el detalle (ruta: /catalogo/p/<id>/)
 - Barra de búsqueda en el encabezado (catálogo)
 - Módulo de sucursales (ruta: /sucursales/) con enlace a Google Maps si hay coordenadas
+=======
+# arcadehub
+>>>>>>> 90faaaa8a38c3b92d13de1f074edf4d036f561e2
